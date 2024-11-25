@@ -1,2 +1,2 @@
 # alphaES
-Repository for the AES acquisition function. AES generalizes previous state-of-the-art information-based methods for BO.
+AES acquisition function repository. AES generalizes previous methods based on prior art information for BO.
