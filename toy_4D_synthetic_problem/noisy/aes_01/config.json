@@ -1,0 +1,85 @@
+{
+    "random_seed" : 1,
+    "lenghtscale_model_synthetic_problem": 0.25,
+    "num_samples_solution": 32,
+    "num_initial_obs": 25,
+    "BO_iters"       : 10,
+    "file_results"   : "results_synthetic_problem/",
+    "main_file"       : "synthetic_problem.py",
+    "experiment-name" : "synthetic_2d_noiseless_1_jes",
+    "acquisition"     : "AES",
+    "alpha": 0.1,
+    "variables": {
+        "X1": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },
+        "X2": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X3": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X4": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X5": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X6": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X7": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X8": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X9": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X10": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X11": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        },"X12": {
+            "type": "FLOAT",
+            "size": 1,
+            "min":  0,
+            "max":  1
+        }
+    },
+   "tasks": {
+      "obj" : {
+          "type"        : "OBJECTIVE",
+	  "fit_mean"    : false,
+	  "transformations"     : [],
+	  "group"    : 0
+      }
+    }
+}
+
