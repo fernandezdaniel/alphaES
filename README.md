@@ -18,7 +18,7 @@ The following dependencies are required to use this repository:
 Clone the repository and install the required dependencies:
 
 ```bash
-git clone https://github.com/your-repo/alphaES.git
+git clone https://github.com/fernandezdaniel/alphaES.git
 cd alphaES
 pip install -r requirements.txt
 ```
