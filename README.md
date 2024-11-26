@@ -34,7 +34,7 @@ If you use this repository, please cite:
 @article{fernandez2024alpha,
   title={Alpha Entropy Search for New Information-based Bayesian Optimization},
   author={Fern{\'a}ndez-S{\'a}nchez, Daniel and Garrido-Merch{\'a}n, Eduardo C and Hern{\'a}ndez-Lobato, Daniel},
-  journal={preprint},
+  journal={arXiv preprint arXiv:2411.16586},
   year={2024}
 }
 
