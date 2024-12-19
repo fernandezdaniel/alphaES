@@ -5,19 +5,8 @@
 # LICENSE file in the root directory of this source tree.
 
 r"""
-Acquisition function for generalized alpha entropy search (AES).
+Acquisition function for ensemble of AES with different alpha values.
 
-.. [Hvarfner2022joint]
-    C. Hvarfner, F. Hutter, L. Nardi,
-    Joint Entropy Search for Maximally-informed Bayesian Optimization.
-    In Proceedings of the Annual Conference on Neural Information
-    Processing Systems (NeurIPS), 2022.
-
-.. [Tu2022joint]
-    B. Tu, A. Gandy, N. Kantas, B. Shafei,
-    Joint Entropy Search for Multi-objective Bayesian Optimization.
-    In Proceedings of the Annual Conference on Neural Information
-    Processing Systems (NeurIPS), 2022.
 """
 
 from __future__ import annotations
