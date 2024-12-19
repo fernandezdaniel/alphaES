@@ -104,7 +104,7 @@ def optimize_posterior_mean(model, num_dims):
 
 # This function fits the model using an early fit if available
 
-def fit_model(train_X, train_Y, state_dict = None, likelihood_exp: str = "GAUSSIAN", median_for_ls: bool = False):
+def fit_model(train_X, train_Y, state_dict = None, likelihood_exp: str = "GAUSSIAN"):
 
     if likelihood_exp == "GAUSSIAN":
         model = SingleTaskGP(train_X, train_Y, outcome_transform=Standardize(m=1))
@@ -113,9 +113,6 @@ def fit_model(train_X, train_Y, state_dict = None, likelihood_exp: str = "GAUSSI
         model = SingleTaskGP(train_X, train_Y, outcome_transform=Standardize(m=1))
         model.likelihood.noise = 1e-4
         model.likelihood.noise_covar.raw_noise.requires_grad_(False)
-
-    if median_for_ls:
-        model.covar_module.base_kernel.lengthscale = get_init_lengthscale(train_X)
 
     # We use the previously trained model, if available
 
@@ -149,9 +146,6 @@ def main():
     # XXX We asume 0, 1 as the box where optimization takes place
 
     bounds = torch.tensor([[0.0] * num_dims, [1.0] * num_dims])
- 
-    if num_dims == 2:
-        plotter = Plotter(num_dims=num_dims, bounds=bounds, resolution=RESOLUTION, path=config["file_results"])
 
     # We now generate some data and then fit the Gaussian process model.
 

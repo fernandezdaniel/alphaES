@@ -43,19 +43,6 @@ from torch import Tensor
 
 from torch.distributions import Normal
 
-#from botorch.util.util import torch_pdf, torch_cdf
-
-# def torch_pdf(x, mean=torch.tensor(0.0), var=torch.tensor(1.0)):
-#     pdf = (1 / torch.sqrt(2 * torch.pi * var)) * torch.exp(-((x - mean) ** 2) / (2 * var))
-#     return pdf
-
-# def torch_cdf(X, loc=torch.tensor(0.0), scale=torch.tensor(1.0)):
-#     normal = torch.distributions.normal.Normal(
-#             loc=torch.zeros(1, device=X.device, dtype=X.dtype),
-#             scale=torch.ones(1, device=X.device, dtype=X.dtype),
-#         )
-#     return normal.cdf(X)
-
 MCMC_DIM = -3  # Only relevant if you do Fully Bayesian GPs.
 
 # The CDF query cannot be strictly zero in the division
@@ -69,13 +56,8 @@ FULLY_BAYESIAN_ERROR_MSG = (
 
 
 class qAlphaEntropySearchEnsemble(AcquisitionFunction, MCSamplerMixin):
-    r"""The acquisition function for the Joint Entropy Search, where the batches
-    `q > 1` are supported through the lower bound formulation.
-
-    This acquisition function computes the mutual information between the observation
-    at a candidate point `X` and the optimal input-output pair.
-
-    See [Tu2022joint]_ for a discussion on the estimation procedure.
+    r"""Ensemble of AES with different alpha values.
+    Batch is not supported `q = 1`.
     """
 
     def __init__(
@@ -94,7 +76,7 @@ class qAlphaEntropySearchEnsemble(AcquisitionFunction, MCSamplerMixin):
         observation_noise: bool = True,
         eps: float = 1e-6
     ) -> None:
-        r"""Joint entropy search acquisition function.
+        r"""Alpha entropy search acquisition function.
 
         Args:
             model: A fitted single-outcome model.
@@ -199,16 +181,10 @@ class qAlphaEntropySearchEnsemble(AcquisitionFunction, MCSamplerMixin):
     def g_eta_factor(self, mean, var):
         return 0.5 * torch.log(2 * torch.pi * var) + 0.5 * mean**2 / var
 
-    #adaptar esto para hacer el calculo de las alfa-divergencias.
-    #integral sobre los x* no hay que hacerla (samples con montecarlo.)
-    # p(y) distribucion pred del GP.
-    # p(y) es una Gaussiana con media y varianza.
-    # p(y|x*) es una gaussiana sobre una truncada.
-    # todo es gaussiano.
     @concatenate_pending_points
     @t_batch_mode_transform()
     def forward(self, X: Tensor, return_parts: bool = False) -> Tensor:
-        r"""Evaluates the lower bound information gain at the design points `X`.
+        r"""
 
         Args:
             X: A `batch_shape x q x d`-dim Tensor of `batch_shape` t-batches with `q`
@@ -220,17 +196,14 @@ class qAlphaEntropySearchEnsemble(AcquisitionFunction, MCSamplerMixin):
         """
 
 
-        """ MAPEO DE VARIABLES CON RESPECTO A VARIABLES DE DANIEL
+        """ Variable mapping 
             self.alpha -> alpha
-            -> m2: Media Condicional
-            -> v2: Varianza condicional.
-            -> m1: Media marginal y -> mean_m
-            -> v1: Varianza marginal y -> variance_m
+            -> m2: Conditional mean.
+            -> v2: Condicional variance.
+            -> m1: Marginal mean y -> mean_m
+            -> v1: Marginal variance y -> variance_m
             -> m3: v3 * (alpha * (m2 / v2 - m1 / v1))
             -> v3: 1.0 / (alpha * (1.0 / v2 - 1.0 / v1))
-            Variables del script:
-            Media predictiva del GP: mean_m
-            Varianza predictiva del GP: variance_m
         """
 
         assert X.shape[ 1 ] == 1, "Batch is not supported yet (q must be 1)"
@@ -317,13 +290,13 @@ class qAlphaEntropySearchEnsemble(AcquisitionFunction, MCSamplerMixin):
         #res = torch.exp(- self.alpha * g_m2v2 + self.alpha * g_m1v1 + g_m3v3) * torch_pdf(mean_pred, m3, var_pred + v3)
         res = torch.exp(- alpha * g_m2v2 + alpha * g_m1v1 - g_m1v1 + self.g_eta_factor( m_prod_pred_dist_3, v_prod_pred_dist_3))
 
-        # XXX DHL check this last squeeze in 2-D problems
+        # XXX Checked. This last squeeze in 2-D problems
 
         res = ((1.0 / ( alpha * ( 1.0 - alpha ))).mean(dim=sample_dim + 1).squeeze(-1).squeeze(-1) - \
                 (1.0 / (alpha * (1.0 - alpha ))).mean(dim=sample_dim + 1).squeeze(-1).squeeze(-1) * \
                 res.mean(dim=sample_dim + 1).squeeze(-1).squeeze(-1))
         
-        # DFS: We divide the acquisition by the weights_alphas (in our case the maximums)
+        # We divide the acquisition by the weights_alphas 
 
         return ( res / abs(self.weights_alphas[ :, None ]) ).mean(0) # We average across alpha values # To take into account p(x*) we use MC samples 
 
