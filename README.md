@@ -1,6 +1,6 @@
 # alphaES
 
-This is the official repository for Alpha Entropy Search for New Information-based Bayesian Optimization. AES generalizes previous state-of-the-art information-based methods for Bayesian Optimization.
+This is the official repository for Alpha Entropy Search for New Information-based Bayesian Optimization. AES generalizes Joint Entropy Search, the former state-of-the-art information-based method for Bayesian Optimization.
 
 #### Status
 
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 #### Examples
 
-An example of a 4D experiment for a scenario with noise and another without noise can be found in ASDAD/. The methods JES (Joint Entropy Search) (https://github.com/hvarfner/JointEntropySearch), AES with alpha=0.1, and the AES ensemble can be found there.
+An example of a 4D experiment for a scenario with noise and another without noise can be found in toy_4D_synthetic_problem/. The methods JES (Joint Entropy Search) (https://github.com/hvarfner/JointEntropySearch), AES with alpha=0.1, and the AES ensemble can be found there.
 
 #### Citation
 
@@ -34,7 +34,7 @@ If you use this repository, please cite:
 @article{fernandez2024alpha,
   title={Alpha Entropy Search for New Information-based Bayesian Optimization},
   author={Fern{\'a}ndez-S{\'a}nchez, Daniel and Garrido-Merch{\'a}n, Eduardo C and Hern{\'a}ndez-Lobato, Daniel},
-  journal={arXiv preprint arXiv:2411.16586},
+  journal={preprint},
   year={2024}
 }
 
