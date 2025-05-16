@@ -1,6 +1,6 @@
 # alphaES
 
-This is the official repository for Alpha Entropy Search for New Information-based Bayesian Optimization. AES generalizes Joint Entropy Search, the former state-of-the-art information-based method for Bayesian Optimization.
+This is the official repository for Alpha Entropy Search for New Information-based Bayesian Optimization. AES generalizes Joint Entropy Search, the state-of-the-art information-based method for Bayesian Optimization.
 
 #### Status
 
