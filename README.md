@@ -4,7 +4,7 @@ This is the official repository for Alpha Entropy Search for New Information-bas
 
 #### Status
 
-This work is currently a preprint. For academic use, please refer to the preprint until an official publication is available.
+This work is published in Knowledge-Based Systems (https://www.sciencedirect.com/science/article/pii/S0950705125006586).
 
 #### Requirements
 
@@ -31,10 +31,16 @@ An example of a 4D experiment for a scenario with noise and another without nois
 
 If you use this repository, please cite:
 
-@article{fernandez2024alpha,
-  title={Alpha Entropy Search for New Information-based Bayesian Optimization},
-  author={Fern{\'a}ndez-S{\'a}nchez, Daniel and Garrido-Merch{\'a}n, Eduardo C and Hern{\'a}ndez-Lobato, Daniel},
-  journal={preprint},
-  year={2024}
+```
+@article{fernandez2025alpha,
+    title = {Alpha entropy search for new information-based Bayesian optimization},
+    author = {Fern{\'a}ndez-S{\'a}nchez, Daniel and Garrido-Merch{\'a}n, Eduardo C and Hern{\'a}ndez-Lobato, Daniel},
+    journal = {Knowledge-Based Systems},
+    volume = {322},
+    pages = {113612},
+    year = {2025},
+    issn = {0950-7051},
+    doi = {https://doi.org/10.1016/j.knosys.2025.113612}
 }
+```
 
